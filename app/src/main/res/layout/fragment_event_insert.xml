@@ -1,0 +1,77 @@
+ <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:tools="http://schemas.android.com/tools"
+     android:layout_width="match_parent"
+     android:layout_height="match_parent"
+     android:orientation="vertical"
+     tools:context="projects.vaniajanuar.timeline.EventFragment">
+
+
+     <android.support.design.widget.TextInputLayout
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content">
+
+         <android.support.design.widget.TextInputEditText
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:id="@+id/event_form_field_name"
+             android:hint="@string/form_label_name"/>
+     </android.support.design.widget.TextInputLayout>
+
+
+     <android.support.design.widget.TextInputLayout
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content">
+
+         <android.support.design.widget.TextInputEditText
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:hint="@string/form_label_location"
+             android:id="@+id/event_form_field_location"/>
+     </android.support.design.widget.TextInputLayout>
+
+     <android.support.design.widget.TextInputLayout
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content">
+
+         <android.support.design.widget.TextInputEditText
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:inputType="date"
+             android:hint="@string/form_label_start_date"
+             android:id="@+id/event_form_field_start_date"/>
+     </android.support.design.widget.TextInputLayout>
+
+     <android.support.design.widget.TextInputLayout
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content">
+
+         <android.support.design.widget.TextInputEditText
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:inputType="date"
+             android:hint="@string/form_label_end_date"
+             android:id="@+id/event_form_field_end_date"/>
+     </android.support.design.widget.TextInputLayout>
+
+     <android.support.design.widget.TextInputLayout
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content">
+
+         <android.support.design.widget.TextInputEditText
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:inputType="textMultiLine"
+             android:text="@string/form_label_description"
+             android:id="@+id/event_form_field_description"/>
+
+     </android.support.design.widget.TextInputLayout>
+
+     <Button android:id="@+id/event_form_btn"
+         android:layout_width="fill_parent"
+         android:layout_height="wrap_content"
+         android:text="@string/label_add_event"
+         android:background="@color/colorPrimary"
+         android:layout_marginTop="40dp"
+         android:textColor="@android:color/white"/>
+
+ </LinearLayout>

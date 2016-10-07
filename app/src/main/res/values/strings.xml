@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Timeline</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="form_label_name">Name</string>
+    <string name="form_label_location">Location</string>
+    <string name="form_label_description">Description</string>
+    <string name="form_label_start_date">Start date</string>
+    <string name="form_label_end_date">End date</string>
+
+    <string name="label_add_event">Add event</string>
+
+</resources>
