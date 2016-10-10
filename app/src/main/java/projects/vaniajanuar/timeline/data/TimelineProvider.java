@@ -16,6 +16,9 @@ public class TimelineProvider extends ContentProvider {
     private static final UriMatcher sUriMatcher = buildUriMatcher();
     private TimelineDatabase mOpenHelper;
 
+    static final int TRACKS = 100;
+    static final int TRACKS_ID = 101;
+
     static final int EVENTS = 200;
     static final int EVENT_ID = 201;
 
@@ -23,8 +26,10 @@ public class TimelineProvider extends ContentProvider {
         final UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
         final String authority = TimelineContract.CONTENT_AUTHORITY;
 
-        matcher.addURI(authority, TimelineContract.PATH_EVENT, EVENTS);
-        matcher.addURI(authority, TimelineContract.PATH_EVENT + "/#", EVENT_ID);
+        matcher.addURI(authority, TimelineContract.PATH_EVENTS, EVENTS);
+        matcher.addURI(authority, TimelineContract.PATH_EVENTS + "/#", EVENT_ID);
+        matcher.addURI(authority, TimelineContract.PATH_TRACKS, TRACKS);
+        matcher.addURI(authority, TimelineContract.PATH_TRACKS + "/#", TRACKS_ID);
 
         return matcher;
     }
@@ -44,6 +49,8 @@ public class TimelineProvider extends ContentProvider {
                 return TimelineContract.EventEntry.CONTENT_TYPE;
             case EVENT_ID:
                 return TimelineContract.EventEntry.CONTENT_ITEM_TYPE;
+            case TRACKS:
+                return TimelineContract.TrackEntry.CONTENT_TYPE;
             default:
                 throw new UnsupportedOperationException("Unrecognized uri: " + uri);
         }

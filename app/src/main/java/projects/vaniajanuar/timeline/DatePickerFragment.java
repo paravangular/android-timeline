@@ -4,7 +4,9 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.view.View;
 import android.widget.DatePicker;
+import android.widget.TextView;
 
 import java.util.Calendar;
 
@@ -25,7 +27,15 @@ public class DatePickerFragment extends DialogFragment
     }
 
     public void onDateSet(DatePicker view, int year, int month, int day) {
-        // Do something with the date chosen by the user
+
+        int viewToUpdateId = getArguments().getInt("view_id");
+
+        String dateString = new StringBuilder().append(day).append("/")
+                .append(month).append("/").append(year).toString();
+
+        TextView dateView = (TextView) getActivity().findViewById(viewToUpdateId);
+        dateView.setText(dateString);
+
     }
 
 }

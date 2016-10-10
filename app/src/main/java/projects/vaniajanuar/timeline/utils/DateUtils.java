@@ -1,5 +1,8 @@
 package projects.vaniajanuar.timeline.utils;
 
+import android.nfc.FormatException;
+
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -21,5 +24,11 @@ public class DateUtils {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static String getDateString(long dateInMillis) {
+        Date date = new Date(dateInMillis);
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        return df.format(date);
     }
 }
