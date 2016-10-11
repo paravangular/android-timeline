@@ -23,7 +23,8 @@
             android:name=".data.TimelineProvider"
             android:authorities="projects.vaniajanuar.timeline" />
 
-        <activity android:name=".EventActivity"></activity>
+        <activity android:name=".EventActivity" />
+
     </application>
 
 </manifest>

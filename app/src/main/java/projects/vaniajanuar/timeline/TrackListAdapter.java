@@ -41,7 +41,7 @@ public class TrackListAdapter extends CursorAdapter {
         // http://stackoverflow.com/questions/27770016/how-to-remove-all-but-the-checked-item-from-a-cursorloader
         ViewHolder viewHolder = (ViewHolder) view.getTag();
 
-        String trackName = cursor.getString(cursor.getColumnIndexOrThrow(TimelineContract.TrackEntry.COLUMN_TRACK_NAME));
+        String trackName = cursor.getString(cursor.getColumnIndexOrThrow(TimelineContract.EventEntry.COLUMN_EVENT_NAME)); // TODO TimelineContract.TrackEntry.COLUMN_TRACK_NAME));
         viewHolder.tvTrackName.setText(trackName);
 
     }
