@@ -49,7 +49,7 @@
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
              android:inputType="textMultiLine"
-             android:text="@string/form_label_description"
+             android:hint="@string/form_label_description"
              android:id="@+id/event_form_field_description"/>
 
      </android.support.design.widget.TextInputLayout>

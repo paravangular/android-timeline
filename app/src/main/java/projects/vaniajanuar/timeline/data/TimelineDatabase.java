@@ -12,8 +12,9 @@ import projects.vaniajanuar.timeline.data.TimelineContract.TrackEntry;
  * Created by vania on 6/10/16.
  */
 public class TimelineDatabase extends SQLiteOpenHelper {
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
     static final String DATABASE_NAME = "timeline.db";
+    private Context mContext;
 
     public TimelineDatabase(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -89,7 +90,9 @@ public class TimelineDatabase extends SQLiteOpenHelper {
 //                EventEntry.COLUMN_EVENT_END_DATE + " INTEGER " +
 //                "FROM " + Tables.EVENTS);
 
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + Tables.EVENTS);
+        mContext.deleteDatabase("DB_NAME");
+
+
         onCreate(sqLiteDatabase);
     }
 }

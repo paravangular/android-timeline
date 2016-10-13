@@ -17,7 +17,7 @@ public class TimelineProvider extends ContentProvider {
     private TimelineDatabase mOpenHelper;
 
     static final int TRACKS = 100;
-    static final int TRACKS_ID = 101;
+    static final int TRACK_ID = 101;
 
     static final int EVENTS = 200;
     static final int EVENT_ID = 201;
@@ -29,7 +29,7 @@ public class TimelineProvider extends ContentProvider {
         matcher.addURI(authority, TimelineContract.PATH_EVENTS, EVENTS);
         matcher.addURI(authority, TimelineContract.PATH_EVENTS + "/#", EVENT_ID);
         matcher.addURI(authority, TimelineContract.PATH_TRACKS, TRACKS);
-        matcher.addURI(authority, TimelineContract.PATH_TRACKS + "/#", TRACKS_ID);
+        matcher.addURI(authority, TimelineContract.PATH_TRACKS + "/#", TRACK_ID);
 
         return matcher;
     }
@@ -85,6 +85,29 @@ public class TimelineProvider extends ContentProvider {
                         sortOrder
                 );
                 break;
+            case TRACKS:
+                returnCursor = mOpenHelper.getReadableDatabase().query(
+                        TimelineDatabase.Tables.TRACKS,
+                        projection,
+                        selection,
+                        selectionArgs,
+                        null,
+                        null,
+                        sortOrder
+                );
+                break;
+            case TRACK_ID:
+                String trackId = TimelineContract.TrackEntry.getTrackId(uri);
+                returnCursor = mOpenHelper.getReadableDatabase().query(
+                        TimelineDatabase.Tables.TRACKS,
+                        projection,
+                        TimelineContract.TrackEntry._ID + " = ?",
+                        new String[]{trackId},
+                        null,
+                        null,
+                        sortOrder
+                );
+                break;
             default:
                 throw new UnsupportedOperationException("Unrecognized uri: " + uri);
         }
@@ -100,13 +123,20 @@ public class TimelineProvider extends ContentProvider {
         Uri returnUri;
 
         switch (match) {
-            case EVENTS:
+            case EVENTS: {
                 long _id = sqLiteDatabase.insert(TimelineDatabase.Tables.EVENTS, null, contentValues);
                 if (_id > 0)
                     returnUri = TimelineContract.EventEntry.buildEventUri(_id);
                 else
                     throw new SQLException("Failed to insert row into " + uri);
-                break;
+                break; }
+            case TRACKS: {
+                long _id = sqLiteDatabase.insert(TimelineDatabase.Tables.TRACKS, null, contentValues);
+                if (_id > 0)
+                    returnUri = TimelineContract.TrackEntry.buildTrackUri(_id);
+                else
+                    throw new SQLException("Failed to insert row into " + uri);
+                break; }
             default:
                 throw new UnsupportedOperationException("Unrecognized uri: " + uri);
         }
@@ -125,6 +155,10 @@ public class TimelineProvider extends ContentProvider {
         switch (match) {
             case EVENTS:
                 rowsDeleted = sqLiteDatabase.delete(TimelineDatabase.Tables.EVENTS,
+                        selection, selectionArgs);
+                break;
+            case TRACKS:
+                rowsDeleted = sqLiteDatabase.delete(TimelineDatabase.Tables.TRACKS,
                         selection, selectionArgs);
                 break;
             default:
@@ -148,6 +182,10 @@ public class TimelineProvider extends ContentProvider {
         switch (match) {
             case EVENTS:
                 rowsUpdated = sqLiteDatabase.update(TimelineDatabase.Tables.EVENTS, contentValues,
+                        selection, selectionArgs);
+                break;
+            case TRACKS:
+                rowsUpdated = sqLiteDatabase.update(TimelineDatabase.Tables.TRACKS, contentValues,
                         selection, selectionArgs);
                 break;
             default:

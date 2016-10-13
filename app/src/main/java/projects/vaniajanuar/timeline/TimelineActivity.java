@@ -1,5 +1,6 @@
 package projects.vaniajanuar.timeline;
 
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.database.Cursor;
@@ -17,7 +18,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.github.clans.fab.FloatingActionButton;
@@ -33,6 +38,7 @@ public class TimelineActivity extends AppCompatActivity implements LoaderManager
     private Toolbar toolbar;
     private ListView mDrawerList;
     private DrawerLayout mDrawerLayout;
+    private LinearLayout mDrawerLinear;
     private ActionBarDrawerToggle mDrawerToggle;
 
     private TrackListAdapter mTracksAdapter;
@@ -68,7 +74,7 @@ public class TimelineActivity extends AppCompatActivity implements LoaderManager
     private void initDrawer() {
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.main_drawer_layout);
-        mDrawerList = (ListView) findViewById(R.id.main_drawer_navigation);
+        mDrawerLinear = (LinearLayout) findViewById(R.id.main_drawer_container);
 
         mDrawerToggle = new ActionBarDrawerToggle(
                 this,
@@ -93,11 +99,18 @@ public class TimelineActivity extends AppCompatActivity implements LoaderManager
     }
 
     private void addDrawerItems() {
-
         mTracksAdapter = new TrackListAdapter(this, null, 0);
+        mDrawerList = (ListView) findViewById(R.id.drawer_track_list_view);
         mDrawerList.setAdapter(mTracksAdapter);
 
         getLoaderManager().initLoader(TRACK_LOADER, null, this);
+
+        final TextView tvAddTrack = (TextView) findViewById(R.id.drawer_button_add_track);
+        tvAddTrack.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                showAddTrackDialog();
+            }
+        });
     }
 
     private void initFab() {
@@ -173,7 +186,7 @@ public class TimelineActivity extends AppCompatActivity implements LoaderManager
             case TRACK_LOADER:
                 returnCursor = new CursorLoader(
                         this,
-                        TimelineContract.EventEntry.CONTENT_URI, //TODO TimelineContract.TrackEntry.CONTENT_URI,
+                        TimelineContract.TrackEntry.CONTENT_URI,
                         null,
                         null,
                         null,
@@ -202,5 +215,11 @@ public class TimelineActivity extends AppCompatActivity implements LoaderManager
     public void onLoaderReset(Loader<Cursor> cursorLoader) {
         mTracksAdapter.swapCursor(null);
     }
+
+    void showAddTrackDialog() {
+        DialogFragment newFragment = AddTrackFragment.newInstance();
+        newFragment.show(getFragmentManager(), "dialog");
+    }
+
 }
 
